@@ -3,12 +3,13 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.create') }} {{ trans('cruds.venue.title_singular') }}
+        {{ trans('global.edit') }} {{ trans('cruds.venue.title_singular') }}
     </div>
 
     <div class="card-body">
-        <form action="{{ route("admin.venues.store") }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route("admin.venues.update", [$venue->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                 <label for="name">{{ trans('cruds.venue.fields.name') }}*</label>
                 <input type="text" id="name" name="name" class="form-control" value="{{ old('name', isset($venue) ? $venue->name : '') }}" required>
@@ -47,7 +48,8 @@
                     {{ trans('cruds.venue.fields.address_helper') }}
                 </p>
             </div>
-                        
+            
+            
             <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
                 <label for="description">{{ trans('cruds.venue.fields.description') }}</label>
                 <textarea id="description" name="description" class="form-control ">{{ old('description', isset($venue) ? $venue->description : '') }}</textarea>
@@ -64,6 +66,8 @@
                 <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
             </div>
         </form>
+
+
     </div>
 </div>
 @endsection
