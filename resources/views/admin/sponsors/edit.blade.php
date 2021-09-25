@@ -3,12 +3,13 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.create') }} {{ trans('cruds.sponsor.title_singular') }}
+        {{ trans('global.edit') }} {{ trans('cruds.sponsor.title_singular') }}
     </div>
 
     <div class="card-body">
-        <form action="{{ route("admin.sponsors.store") }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route("admin.sponsors.update", [$sponsor->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                 <label for="name">{{ trans('cruds.sponsor.fields.name') }}*</label>
                 <input type="text" id="name" name="name" class="form-control" value="{{ old('name', isset($sponsor) ? $sponsor->name : '') }}" required>
@@ -51,6 +52,8 @@
                 <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
             </div>
         </form>
+
+
     </div>
 </div>
 @endsection
