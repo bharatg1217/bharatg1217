@@ -3,12 +3,13 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.create') }} {{ trans('cruds.gallery.title_singular') }}
+        {{ trans('global.edit') }} {{ trans('cruds.gallery.title_singular') }}
     </div>
 
     <div class="card-body">
-        <form action="{{ route("admin.galleries.store") }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route("admin.galleries.update", [$gallery->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                 <label for="name">{{ trans('cruds.gallery.fields.name') }}*</label>
                 <input type="text" id="name" name="name" class="form-control" value="{{ old('name', isset($gallery) ? $gallery->name : '') }}" required>
@@ -39,6 +40,8 @@
                 <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
             </div>
         </form>
+
+
     </div>
 </div>
 @endsection
