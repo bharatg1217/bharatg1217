@@ -3,12 +3,13 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.create') }} {{ trans('cruds.schedule.title_singular') }}
+        {{ trans('global.edit') }} {{ trans('cruds.schedule.title_singular') }}
     </div>
 
     <div class="card-body">
-        <form action="{{ route("admin.schedules.store") }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route("admin.schedules.update", [$schedule->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="form-group {{ $errors->has('day_number') ? 'has-error' : '' }}">
                 <label for="day_number">{{ trans('cruds.schedule.fields.day_number') }}*</label>
                 <input type="number" id="day_number" name="day_number" class="form-control" value="{{ old('day_number', isset($schedule) ? $schedule->day_number : '') }}" step="1" required>
@@ -74,6 +75,8 @@
                 <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
             </div>
         </form>
+
+
     </div>
 </div>
 @endsection
